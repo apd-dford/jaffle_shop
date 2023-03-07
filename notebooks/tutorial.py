@@ -2,22 +2,7 @@
 # MAGIC %md
 # MAGIC # Using dbt and databricks Auto Loader to transform streaming data
 # MAGIC 
-# MAGIC Jaffle Shop has grown rapidly and now wants to track sales at an hourly level throughout the day and still use dbt for data transformations! Thanks to databricks, that's actually pretty straightforward. In this guide, you will:
-# MAGIC 
-# MAGIC 1. Clone a fork of the dbt Jaffle Shop repo into your databricks workspace. The repo has been updated with the sample data changed to 5 hourly files of orders and payments and minimal changes to show how dbt can be used on databricks Auto Loader structured streaming
-# MAGIC 2. create a function to simulate loading those hourly files, by copying one hour at a time into dbfs and pausing for a few minutes
-# MAGIC 3. creating a databricks job that uses auto loader to pick up any files in dbfs and load them into streaming tables - then run the dbt transformation to create jaffle shop orders table
-
-# COMMAND ----------
-
-# DBTITLE 0,Clone the Repo
-# MAGIC %md
-# MAGIC 
-# MAGIC 1. Navigate to the Repos tab in your databricks workspace
-# MAGIC 2. Clone the below repo (which is a fork of the jaffle_shop repo)
-# MAGIC 3. Switch to the streamify branch, then pull it
-# MAGIC 
-# MAGIC https://github.com/apd-dford/jaffle_shop
+# MAGIC Jaffle Shop has grown rapidly and now wants to track sales at an hourly level throughout the day and still use dbt for data transformations! Thanks to databricks, that's actually pretty straightforward!
 
 # COMMAND ----------
 
