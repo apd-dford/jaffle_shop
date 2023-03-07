@@ -8,8 +8,8 @@ import time
 # COMMAND ----------
 
 def slowly_add_data():
-    for i in range(10,15):
-        simulate_data_feed(i)
+    for hour in range(10,15):
+        simulate_data_feed(hour)
         time.sleep(120)
 
 # COMMAND ----------
