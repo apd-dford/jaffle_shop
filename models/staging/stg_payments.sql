@@ -3,7 +3,7 @@ with source as (
     {#-
     Changed from using seed data to the structured streaming delta table
     #}
-    select * from {{ source('jaffle_shop_payments_raw') }}
+    select * from {{ source('jaffle_shop', 'jaffle_shop_payments_raw') }}
 
 ),
 
