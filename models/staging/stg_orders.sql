@@ -1,10 +1,9 @@
 with source as (
 
     {#-
-    Normally we would select from the table here, but we are using seeds to load
-    our data in this project
+    Changed from using seed data to the structured streaming delta table
     #}
-    select * from {{ ref('raw_orders') }}
+    select * from {{ source('jaffle_shop_orders_raw') }}
 
 ),
 
@@ -13,7 +12,7 @@ renamed as (
     select
         id as order_id,
         user_id as customer_id,
-        order_date,
+        order_date as order_timestamp,
         status
 
     from source

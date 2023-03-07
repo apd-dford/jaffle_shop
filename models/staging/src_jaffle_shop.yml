@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: default
+    tables:
+    - name: jaffle_shop_orders_raw
+    - name: jaffle_shop_payments_raw
+    - name: jaffle_shop_customers_raw
