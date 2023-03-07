@@ -7,12 +7,11 @@ import time
 
 # COMMAND ----------
 
-simulate_data_feed(10)
+def slowly_add_data():
+    for i in range(10,15):
+        simulate_data_feed(i)
+        time.sleep(120)
 
 # COMMAND ----------
 
-# MAGIC %fs ls /test/jaffle_shop/
-
-# COMMAND ----------
-
-time.sleep(3)
+slowly_add_data()
