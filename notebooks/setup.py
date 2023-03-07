@@ -1,11 +1,10 @@
 # Databricks notebook source
-# DBTITLE 1,Your username is used in a couple places
-repo_username = "dylan.ford@aimpointdigital.com"
-target_path = "dbfs:/test/jaffle_shop/"
+catalog_name = "main"
+database_name = "default"
 
 # COMMAND ----------
 
-# DBTITLE 1,This function moves a set of files from the repo onto dbfs, where we will have autoloader setup
+# DBTITLE 0,This function moves a set of files from the repo onto dbfs, where we will have autoloader setup
 def simulate_data_feed(hour: int):
     orders_file = f"raw_orders_2018_01_01_{hour}.csv"
     payments_file = f"raw_payments_2018_01_01_{hour}.csv"
@@ -24,7 +23,7 @@ def process_data(file_type: str):
                   .writeStream
                   .option("checkpointLocation", f"{target_path}/checkpoints/{file_type}/")
                   .trigger(availableNow=True)
-                  .table(f"main.default.jaffle_shop_{file_type}_raw")
+                  .table(f"{catalog_name}.{database_name}.jaffle_shop_{file_type}_raw")
             )
  
     query.awaitTermination()
