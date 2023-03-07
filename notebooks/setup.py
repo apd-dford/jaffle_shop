@@ -1,6 +1,8 @@
 # Databricks notebook source
 catalog_name = "main"
 database_name = "default"
+repo_username = "<your_username>"
+target_path = "dbfs:/test/jaffle_shop/"
 
 # COMMAND ----------
 
