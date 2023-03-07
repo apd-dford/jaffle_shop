@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: jaffle_shop
-    schema: main.default
+    schema: default
     tables:
     - name: jaffle_shop_orders_raw
     - name: jaffle_shop_payments_raw
