@@ -5,3 +5,4 @@ databricks_username = "<your_username>"
 catalog_name = "main"
 database_name = "default"
 target_path = "dbfs:/test/jaffle_shop/"
+seconds_between_files = 120
