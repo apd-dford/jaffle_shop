@@ -21,7 +21,7 @@ def process_data(file_type: str):
                   .load(f"{target_path}/{file_type}/")
                   .writeStream
                   .option("checkpointLocation", f"{target_path}/checkpoints/{file_type}/")
-                  .trigger(processingTime='5 seconds')
+                  .trigger(processingTime='30 seconds')
                   .table(f"{catalog_name}.{database_name}.jaffle_shop_{file_type}_raw")
             )
  
