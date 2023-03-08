@@ -1,8 +1,5 @@
 # Databricks notebook source
-catalog_name = "main"
-database_name = "default"
-repo_username = "<your_username>"
-target_path = "dbfs:/test/jaffle_shop/"
+# MAGIC %run ./variables
 
 # COMMAND ----------
 
@@ -10,8 +7,8 @@ target_path = "dbfs:/test/jaffle_shop/"
 def simulate_data_feed(hour: int):
     orders_file = f"raw_orders_2018_01_01_{hour}.csv"
     payments_file = f"raw_payments_2018_01_01_{hour}.csv"
-    dbutils.fs.cp(f"file:/Workspace/Repos/{repo_username}/jaffle_shop/seeds/{orders_file}", f"{target_path}/orders/{orders_file}")
-    dbutils.fs.cp(f"file:/Workspace/Repos/{repo_username}/jaffle_shop/seeds/{payments_file}", f"{target_path}/payments/{payments_file}")
+    dbutils.fs.cp(f"file:/Workspace/Repos/{username}/jaffle_shop/seeds/{orders_file}", f"{target_path}/orders/{orders_file}")
+    dbutils.fs.cp(f"file:/Workspace/Repos/{username}/jaffle_shop/seeds/{payments_file}", f"{target_path}/payments/{payments_file}")
 
 # COMMAND ----------
 

@@ -6,15 +6,12 @@
 
 # COMMAND ----------
 
-repo_username = "<your_username>"
-# run `dbutils.notebook.entry_point.getDbutils().notebook().getContext().userName().get()` to check your username
-
-target_path = "dbfs:/test/jaffle_shop/" # update to wherever you like, I chose dbfs for simplicity. In a real scenario this is the location where you are getting live data
+# MAGIC %run ./variables
 
 # COMMAND ----------
 
 # DBTITLE 1,Check you can access the files from the repo
-# MAGIC %sh ls /Workspace/Repos/<your_username>/jaffle_shop/seeds 
+# MAGIC %sh ls /Workspace/Repos/<username>/jaffle_shop/seeds 
 # MAGIC 
 # MAGIC # you should see a list of 11 files, 1 customer, 5 orders and 5 payments files from the jaffle_shop repo
 
@@ -22,14 +19,11 @@ target_path = "dbfs:/test/jaffle_shop/" # update to wherever you like, I chose d
 
 # DBTITLE 1,Copy customers static file
 customers_file = "raw_customers.csv"
-dbutils.fs.cp(f"file:/Workspace/Repos/{repo_username}/jaffle_shop/seeds/{customers_file}", f"{target_path}/customers/{customers_file}")
+dbutils.fs.cp(f"file:/Workspace/Repos/{username}/jaffle_shop/seeds/{customers_file}", f"{target_path}/customers/{customers_file}")
 
 # COMMAND ----------
 
 # DBTITLE 1,Load data to the static jaffle_shop_customers_raw table
-catalog_name = "main"
-database_name = "default"
-
 (spark.read
   .option("header", True)
   .csv(f"{target_path}/customers/")
@@ -41,32 +35,6 @@ database_name = "default"
 # COMMAND ----------
 
 # MAGIC %sql select * from main.default.jaffle_shop_customers_raw limit 5
-
-# COMMAND ----------
-
-# DBTITLE 1,This function moves a set of files from the repo onto dbfs, where we will have autoloader setup
-def simulate_data_feed(hour: int):
-    orders_file = f"raw_orders_2018_01_01_{hour}.csv"
-    payments_file = f"raw_payments_2018_01_01_{hour}.csv"
-    dbutils.fs.cp(f"file:/Workspace/Repos/{repo_username}/jaffle_shop/seeds/{orders_file}", f"{target_path}/orders/{orders_file}")
-    dbutils.fs.cp(f"file:/Workspace/Repos/{repo_username}/jaffle_shop/seeds/{payments_file}", f"{target_path}/payments/{payments_file}")
-
-# COMMAND ----------
-
-# DBTITLE 1,Run structured streaming function to read all files in directly and update the streaming table
-def process_orders(file_type: str):  
-    query = (spark.readStream
-                  .format("cloudFiles")
-                  .option("cloudFiles.format", "csv")
-                  .option("cloudFiles.schemaLocation", f"{target_path}/schemas/{file_type}_schema")
-                  .load(f"{target_path}/{file_type}/")
-                  .writeStream
-                  .option("checkpointLocation", f"{target_path}/schemas/{file_type}/")
-                  .trigger(availableNow=True)
-                  .table(f"{catalog_name}.{database_name}.jaffle_shop_{file_type}_raw")
-            )
- 
-    query.awaitTermination()
 
 # COMMAND ----------
 
