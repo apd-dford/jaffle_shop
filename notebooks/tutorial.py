@@ -14,7 +14,7 @@ target_path = "dbfs:/test/jaffle_shop/" # update to wherever you like, I chose d
 # COMMAND ----------
 
 # DBTITLE 1,Check you can access the files from the repo
-# MAGIC %sh ls /Workspace/Repos/<your_username/jaffle_shop/seeds 
+# MAGIC %sh ls /Workspace/Repos/<your_username>/jaffle_shop/seeds 
 # MAGIC 
 # MAGIC # you should see a list of 11 files, 1 customer, 5 orders and 5 payments files from the jaffle_shop repo
 
