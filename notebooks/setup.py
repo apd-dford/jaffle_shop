@@ -38,8 +38,14 @@ dbutils.fs.cp(f"file:/Workspace/Repos/{username}/jaffle_shop/seeds/{customers_fi
 
 # COMMAND ----------
 
-# DBTITLE 1,Function to delete data and raw tables
+# DBTITLE 1,Function to delete data, tables and views
+# *** WARNING ***
+# below function removes ALL data from the <target_path> directory
+
 def cleanup():
     tables = ("customers", "payments", "orders")
-    sql(f"drop table {catalog_name}.{database_name}.jaffle_shop_{table}_raw") for table in tables
+    for table in tables:
+        sql(f"drop table if exists {catalog_name}.{database_name}.jaffle_shop_{table}_raw")
+        sql(f"drop view if exists {catalog_name}.{database_name}.stg_{table}")
+        sql(f"drop table if exists {catalog_name}.{database_name}.{table}")
     dbutils.fs.rm(f"{target_path}/", True)
