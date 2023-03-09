@@ -34,7 +34,7 @@ dbutils.fs.cp(f"file:/Workspace/Repos/{username}/jaffle_shop/seeds/{customers_fi
 
 # COMMAND ----------
 
-# MAGIC %sql select * from main.default.jaffle_shop_customers_raw limit 5
+spark.sql(f"select * from {catalog_name}.{database_name}.jaffle_shop_customers_raw limit 5").show()
 
 # COMMAND ----------
 
